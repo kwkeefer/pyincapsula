@@ -14,3 +14,6 @@ from .getReport import getReport
 from .getRules import getRules
 from .getVisits import getVisits
 from .modCachingRule import modCachingRule
+from .addRule import addRule
+from .deleteRule import deleteRule
+from .editRule import editRule
