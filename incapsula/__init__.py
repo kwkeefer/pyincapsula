@@ -17,3 +17,4 @@ from .modCachingRule import modCachingRule
 from .addRule import addRule
 from .deleteRule import deleteRule
 from .editRule import editRule
+from .modSiteConfiguration import modSiteConfiguration
