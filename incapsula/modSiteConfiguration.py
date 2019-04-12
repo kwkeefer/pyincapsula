@@ -4,8 +4,6 @@
 Valid options are listed at:
 https://docs.imperva.com/bundle/cloud-application-security/page/api/sites-api.htm#Modify
 
-Only partial functionality - more needs to be added. Comma seperated lists need to be strings, not pythonic lists.
-
  site_id -- numerical site id to retrive (Default: None)
  api_id -- API ID to use (Default: enviroment variable)
  api_key -- API KEY to use (Default: enviroment variable)
