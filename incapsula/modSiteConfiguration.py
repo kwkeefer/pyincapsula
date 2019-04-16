@@ -51,6 +51,8 @@ def modSiteConfiguration(site_id, param, value, api_id=os.environ.get('API_ID'),
         return errorProcess(error)
     try:  # Deliver the payload
         r = requests.post(url, data=payload)
+        print("Request URL:\n{}".format(url))
+        print("Request payload:\n{}".format(payload))
         r.raise_for_status()
         return r.text
     except NameError as error:
