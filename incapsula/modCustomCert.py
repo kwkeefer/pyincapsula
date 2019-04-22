@@ -66,31 +66,62 @@ def modCustomCert(
     except Exception as error:
         return errorProcess(error)
 
-def modCustomCertWithoutOpen(
-        site_id, certificate, private_key, passphrase=None,
-        api_id=os.environ.get('API_ID'), api_key=os.environ.get('API_KEY')):
-    # For uploading a cert when you do not have the cert files saved locally
+def incapsula_upload_certificate(SITE_ID, TLSCert, TLSPriv):
+    """
+    Uploads a custom certificate and private key to Incapsula
+    :param SiteName: Site DNS entry
+    :param TLSCert: Path to TLS Certificate
+    :param TLSPriv: Path to TLS Certificate private key
+    :return: Status message of request
+    """
+    print('Uploading TLS certificate')
+    # Get password from command line input
+    TLSPass = getpass.getpass(prompt='Enter the password used to encrypt the private key: ')
+    # Encode password in UTF8
+    TLSPass_Bytes = TLSPass.encode("utf-8")
 
-    url = api_endpoint + 'prov/v1/customCertificate/upload'
+    # Base64 encode the Certificate
+    with open(TLSCert, 'rb') as f:
+        TLSCert64 = base64.b64encode(f.read())
+
+    # Base64 encode the decrypted Private Key
+    with open(TLSPriv, 'rb') as f:
+        TLSPriv64 = base64.b64encode(
+            crypto.dump_privatekey(
+                crypto.FILETYPE_PEM,
+                crypto.load_privatekey(
+                    crypto.FILETYPE_PEM,
+                    f.read(),
+                    TLSPass_Bytes
+                )
+            )
+        )
+
     try:
-        if passphrase is not None:
-            payload = {
-                'api_id':api_id,
-                'api_key':api_key,
-                'site_id':site_id,
-                'certificate':cert,
-                'private_key':privKey,
-                'passphrase':passphrase
+        response = requests.post(
+            BASE_URL + 'sites/customCertificate/upload',
+            data={
+                'api_id': API_ID,
+                'api_key': API_KEY,
+                'site_id': SITE_ID,
+                'certificate': TLSCert64,
+                'private_key': TLSPriv64,
             }
+        )
+
+        # Consider any status other than 2xx an error
+        if not response.status_code // 100 == 2:
+            return "error: unexpected response {}".format(response)
+
+        site_data = response.json()
+
+        # Look for a 'res' code that's not 0 from the Incapsula API; something went wrong
+        if int(site_data['res']) != 0:
+            return "error: {} - {}".format(site_data['res_message'],site_data['debug_info'])
         else:
-            payload = {
-                'api_id':api_id,
-                'api_key':api_key,
-                'site_id':site_id,
-                'certificate':cert,
-                'private_key':privKey
-            }
-        r = requests.post(url, data=payload)
-        return r.text
-    except Exception as error:
-        return errorProcess(error)
+            print('Certificate uploaded successfully')
+            return
+
+    except requests.exceptions.RequestException as e:
+        # A serious problem happened, like an SSLError or InvalidURL
+        return "error: {}".format(e)

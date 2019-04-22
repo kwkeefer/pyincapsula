@@ -8,7 +8,7 @@ from .modSiteLogLevel import modSiteLogLevel
 from .getSubAccounts import getSubAccounts
 from .getSites import getSites
 from .modTLS import modTLS
-from .modCustomCert import modCustomCert, modCustomCertWithoutOpen
+from .modCustomCert import modCustomCert, incapsula_upload_certificate
 from .getValidate import getValidation
 from .getReport import getReport
 from .getRules import getRules
