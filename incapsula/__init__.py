@@ -14,7 +14,7 @@ from .getReport import getReport
 from .getRules import getRules
 from .getVisits import getVisits
 from .modCachingRule import modCachingRule
-from .addRule import addRule
+from .addIncapRule import addIncapRule
 from .deleteRule import deleteRule
-from .editRule import editRule
+from .modIncapRule import modIncapRule
 from .modSiteConfiguration import modSiteConfiguration
