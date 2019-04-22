@@ -11,6 +11,7 @@ Private Key file, and the passphrase if required
  passphrase -- passphrase for the private key (Default: None)
  api_id -- API ID to use (Default: enviroment variable)
  api_key -- API KEY to use (Default: enviroment variable)
+
 """
 
 import os
@@ -44,6 +45,35 @@ def modCustomCert(
     url = api_endpoint + 'prov/v1/customCertificate/upload'
     try:
         if(passphrase is not None):
+            payload = {
+                'api_id':api_id,
+                'api_key':api_key,
+                'site_id':site_id,
+                'certificate':cert,
+                'private_key':privKey,
+                'passphrase':passphrase
+            }
+        else:
+            payload = {
+                'api_id':api_id,
+                'api_key':api_key,
+                'site_id':site_id,
+                'certificate':cert,
+                'private_key':privKey
+            }
+        r = requests.post(url, data=payload)
+        return r.text
+    except Exception as error:
+        return errorProcess(error)
+
+def modCustomCertWithoutOpen(
+        site_id, certificate, private_key, passphrase=None,
+        api_id=os.environ.get('API_ID'), api_key=os.environ.get('API_KEY')):
+    # For uploading a cert when you do not have the cert files saved locally
+
+    url = api_endpoint + 'prov/v1/customCertificate/upload'
+    try:
+        if passphrase is not None:
             payload = {
                 'api_id':api_id,
                 'api_key':api_key,
