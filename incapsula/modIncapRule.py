@@ -31,7 +31,7 @@ from .com_error import errorProcess
 api_endpoint = 'https://my.incapsula.com/api/'
 
 
-def editRule(
+def modIncapRule(
         site_id, api_id=os.environ.get('API_ID'), api_key=os.environ.get('API_KEY'), name=None,
         action=None, rule_filter=None, response_code=None, protocol=None, add_missing=None,
         pattern_from=None, pattern_to=None, rewrite_name=None, dc_id=None, rate_context=None,
