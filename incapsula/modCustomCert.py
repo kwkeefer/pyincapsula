@@ -66,7 +66,7 @@ def modCustomCert(
     except Exception as error:
         return errorProcess(error)
 
-def incapsula_upload_certificate(SITE_ID, TLSCert, TLSPriv):
+def incapsula_upload_certificate(SITE_ID, API_ID, API_KEY, TLSCert, TLSPriv, TLSPass):
     """
     Uploads a custom certificate and private key to Incapsula
     :param SiteName: Site DNS entry
@@ -76,7 +76,6 @@ def incapsula_upload_certificate(SITE_ID, TLSCert, TLSPriv):
     """
     print('Uploading TLS certificate')
     # Get password from command line input
-    TLSPass = getpass.getpass(prompt='Enter the password used to encrypt the private key: ')
     # Encode password in UTF8
     TLSPass_Bytes = TLSPass.encode("utf-8")
 
