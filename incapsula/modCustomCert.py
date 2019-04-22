@@ -100,7 +100,7 @@ def incapsula_upload_certificate(SITE_ID, API_ID, API_KEY, TLSCert, TLSPriv, TLS
 
     try:
         response = requests.post(
-            BASE_URL + 'sites/customCertificate/upload',
+            api_endpoint + 'prov/v1/sites/customCertificate/upload',
             data={
                 'api_id': API_ID,
                 'api_key': API_KEY,
