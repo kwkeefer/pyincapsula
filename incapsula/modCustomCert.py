@@ -17,6 +17,8 @@ Private Key file, and the passphrase if required
 import os
 import requests
 import base64
+import sys
+from OpenSSL import crypto
 from .com_error import errorProcess
 
 api_endpoint = 'https://my.incapsula.com/api/'
