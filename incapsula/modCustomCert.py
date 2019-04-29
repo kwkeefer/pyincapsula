@@ -20,6 +20,10 @@ import base64
 import sys
 from OpenSSL import crypto
 from .com_error import errorProcess
+import logging
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 api_endpoint = 'https://my.incapsula.com/api/'
 
@@ -76,7 +80,7 @@ def incapsula_upload_certificate(SITE_ID, API_ID, API_KEY, TLSCert, TLSPriv, TLS
     :param TLSPriv: Path to TLS Certificate private key
     :return: Status message of request
     """
-    print('Uploading TLS certificate')
+    logger.info('Uploading TLS certificate')
     # Get password from command line input
     # Encode password in UTF8
     TLSPass_Bytes = TLSPass.encode("utf-8")
@@ -120,7 +124,7 @@ def incapsula_upload_certificate(SITE_ID, API_ID, API_KEY, TLSCert, TLSPriv, TLS
         if int(site_data['res']) != 0:
             return "error: {} - {}".format(site_data['res_message'],site_data['debug_info'])
         else:
-            print('Certificate uploaded successfully')
+            logger.info('Certificate uploaded successfully')
             return
 
     except requests.exceptions.RequestException as e:
