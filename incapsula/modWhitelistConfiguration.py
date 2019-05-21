@@ -40,7 +40,7 @@ def modWhitelistConfiguration(
         user_agents=None, exception_id_only=None
         ):
 
-    url = api_endpoint+'prov/v1/sites/performance/caching-rules'
+    url = api_endpoint+'prov/v1/sites/configure/whitelists'
     try:  # Setup the payload
         assert site_id is not None
         payload = {
