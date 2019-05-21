@@ -18,3 +18,4 @@ from .addIncapRule import addIncapRule
 from .deleteRule import deleteRule
 from .modIncapRule import modIncapRule
 from .modSiteConfiguration import modSiteConfiguration
+from .modWhitelistConfiguration import modWhitelistConfiguration

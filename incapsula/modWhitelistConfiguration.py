@@ -33,7 +33,7 @@ from .com_error import errorProcess
 api_endpoint = 'https://my.incapsula.com/api/'
 
 
-def modCachingRule(
+def modWhitelistConfiguration(
         site_id=None, api_id=os.environ.get('API_ID'), api_key=os.environ.get('API_KEY'),
         rule_id=None, whitelist_id=None, delete_whitelist=None, urls=None, countries=None,
         continents=None, ips=None, client_app_types=None, client_apps=None, parameters=None,
