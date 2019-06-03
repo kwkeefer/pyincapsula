@@ -122,7 +122,8 @@ def incapsula_upload_certificate(SITE_ID, API_ID, API_KEY, TLSCert, TLSPriv, TLS
 
         # Look for a 'res' code that's not 0 from the Incapsula API; something went wrong
         if int(site_data['res']) != 0:
-            return "error: {} - {}".format(site_data['res_message'],site_data['debug_info'])
+            logger.error("Error uploading cert: {} - {}".format(site_data['res_message'],site_data['debug_info']))
+            return
         else:
             logger.info('Certificate uploaded successfully')
             return
