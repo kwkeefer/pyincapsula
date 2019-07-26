@@ -19,3 +19,4 @@ from .deleteRule import deleteRule
 from .modIncapRule import modIncapRule
 from .modSiteConfiguration import modSiteConfiguration
 from .modWhitelistConfiguration import modWhitelistConfiguration
+from .modStorageRegion import modStorageRegion
